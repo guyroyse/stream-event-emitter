@@ -21,9 +21,9 @@ export default class RedisListEmitter extends EventEmitter {
 
   async start() {
     while (true) {
-      const listResponse = await this.redisClient.brPop(this.listKey, 5000)
-      console.log('ping') // shouldn't this hit every 5 seconds?
-      console.log('listResponses', listResponse)
+      const listResponse = await this.redisClient.brPop(this.listKey, 5)
+      if (listResponse === null) continue
+      this.emit('message', { ...listResponse })
     }
   }
 }

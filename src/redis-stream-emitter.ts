@@ -27,8 +27,6 @@ export default class RedisStreamEmitter extends EventEmitter {
       const options = { BLOCK: 5000, COUNT: 1 }
       const streamResponses = await this.redisClient.xRead(streamRequests, options)
 
-      console.log('ping') // shouldn't this hit every 5 seconds?
-
       if (streamResponses === null || streamResponses.length === 0) continue
 
       const [streamResponse] = streamResponses
